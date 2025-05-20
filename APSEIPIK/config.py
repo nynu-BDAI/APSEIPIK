@@ -81,11 +81,11 @@ def config():
     val_check_interval = 1.0# use 多少次验证一次
 
     test_only =False
-    checkpoint = '/mnt/Data/wangshilong/pycode/HAT-pytorch/Dual_prompt/runs/last.ckpt'
+    checkpoint = 'PATH'
 
     # below params varies with the environment
-    data_root = '/mnt/Data/wangshilong/self_datasets'
-    log_dir = "/mnt/Data/wangshilong/pycode/HAT-pytorch/Dual_prompt/continual_result"
+    data_root = 'PATH TO DATASETS'
+    log_dir = "PATH TO LOGS"
     per_gpu_batchsize =64  # you should define this manually with per_gpu_batch_size=#
     num_gpus =4
     num_nodes = 1
@@ -157,11 +157,11 @@ def config():
     val_check_interval = 0.3 # use 多少次验证一次
 
     test_only =True
-    checkpoint = '/mnt/Data/wangshilong/pycode/HAT-pytorch/Dual_prompt/runs/last.ckpt'
+    checkpoint = 'PATH'
 
     # below params varies with the environment
-    data_root = '/mnt/Data/wangshilong/self_datasets'
-    log_dir = "/mnt/Data/wangshilong/pycode/HAT-pytorch/Dual_prompt/continual_result"
+    data_root = 'PATH TO DATASETS'
+    log_dir = "LOG_PATH"
     per_gpu_batchsize =64 # you should define this manually with per_gpu_batch_size=#
     num_gpus =1
     num_nodes = 1
