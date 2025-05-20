@@ -556,6 +556,28 @@ def compute_irtr_my(pl_module, batch):
     loss_t2i = F.cross_entropy(logits_per_text, ground_truth)
     loss_clip = (loss_t2i + loss_i2t) / 2
 
+    logits_per_image_to_tg = logit_scale * image_feats @ text_global_feats.t()
+    logits_per_text_to_tg=logits_per_image_to_tg.t()
+    
+    logits_per_image_to_tb = logit_scale * image_feats @ text_background_feats.t()
+    logits_per_text_to_tb = logits_per_image_to_tb.t()
+    
+    logits_per_image_to_te = logit_scale * image_feats @ text_entity_feats.t()
+    logits_per_text_to_te = logits_per_image_to_te.t()
+    
+    loss_i2t_g = F.cross_entropy(logits_per_image_to_tg, ground_truth)
+    loss_t2i_g = F.cross_entropy(logits_per_text_to_tg, ground_truth)
+    
+    loss_i2t_b = F.cross_entropy(logits_per_image_to_tb, ground_truth)
+    loss_t2i_b = F.cross_entropy(logits_per_text_to_tb, ground_truth)
+
+    loss_i2t_e = F.cross_entropy(logits_per_image_to_te, ground_truth)
+    loss_t2i_e = F.cross_entropy(logits_per_text_to_te, ground_truth)
+    
+    loss_clip_g=(loss_t2i_g + loss_i2t_g) / 2
+    loss_clip_b=(loss_t2i_b + loss_i2t_b) / 2
+    loss_clip_e=(loss_t2i_e + loss_i2t_e) / 2
+    
     #Triple Loss
     loss_triple=compute_SCAN(image_feats,text_feats,margin=pl_module.hparams.config["margin"], direction=pl_module.hparams.config["direction"],weight=None)
     #add use deepseek
@@ -563,16 +585,8 @@ def compute_irtr_my(pl_module, batch):
     loss_triple2=compute_SCAN(image_feats,text_background_feats,margin=pl_module.hparams.config["margin"], direction=pl_module.hparams.config["direction"],weight=None)
     loss_triple3=compute_SCAN(image_feats,text_entity_feats,margin=pl_module.hparams.config["margin"], direction=pl_module.hparams.config["direction"],weight=None)
 
-
-    # print(f'loss_clip={loss_clip}')
-    # print(f'loss_triple={loss_triple}')
-    # print(f'loss_triple1={loss_triple1}')
-    # print(f'loss_triple2={loss_triple2}')
-    # print(f'loss_triple3={loss_triple3}')
-
-
     ret = {
-        "irtr_loss": loss_clip+0.1*loss_triple+0.001*loss_triple1+0.001*loss_triple2+0.001*loss_triple3
+        "irtr_loss": loss_clip+0.1*loss_triple+0.001*loss_triple1+0.001*loss_triple2+0.001*loss_triple3+0.1*(loss_clip_g+loss_clip_b+loss_clip_e)
         }
 
     return ret
