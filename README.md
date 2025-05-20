@@ -22,7 +22,7 @@ We provide specific code to help you batch-generate multi-view image description
 
 We provide here the APSEIPIK model weights trained on the Flickr30k dataset, for convenient subsequent evaluation and research.
 
-  * Flickr30k pre-trained weights: `[链接到您的权重文件]`
+  * Flickr30k pre-trained weights: `https://pan.baidu.com/s/1igvCQobGeiM_UBzElCnObQ?pwd=enj3`
     * You can load the weights as follows:
         ```python
         model.load_state_dict(torch.load('path/to/your/flickr30k_weights.pth'))
