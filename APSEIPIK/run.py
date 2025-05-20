@@ -54,14 +54,14 @@ def main(_config):
 
     checkpoint_callback = pl.callbacks.ModelCheckpoint(
         save_top_k=-1,
-        dirpath=f'/mnt/Data/wangshilong/pycode/HAT-pytorch/Dual_prompt/runs',
+        dirpath=f'PATH TO SAVE CHECKPOINT',
         #monitor="total_loss",
         #mode="min",
         save_last=True,
         filename='epoch={epoch}'
     )
     callbacks = [checkpoint_callback]
-    #datasets_list = ['coco','f30k','iaprtc12','ec', 'rsicd'] #按顺序处理数据
+    #datasets_list = ['coco','f30k','iaprtc12','ec', 'rsicd'] 
     datasets_list = ['f30k','coco','rsicd','ec','iaprtc12']
 
     for idx,dataset_name in enumerate(datasets_list):
