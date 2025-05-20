@@ -174,10 +174,10 @@ class CocoDataset(data.Dataset):
             transform: transformer for image.
         """
         self.split=split
-        self.cache_dir = os.path.join(os.path.dirname("/mnt/Data/wangshilong/self_datasets/coco/images/train2014"), "BLIP2_caption_cache")
+        self.cache_dir = os.path.join(os.path.dirname("PATH TO DATASET"), "BLIP2_caption_cache")
         os.makedirs(self.cache_dir, exist_ok=True)
 
-        self.root=root  #tuple类型包含('/mnt/Data/wangshilong/self_datasets/coco/images/train2014', '/mnt/Data/wangshilong/self_datasets/coco/images/val2014')
+        self.root=root  #tuple类型
         self.json=json  #同上
         self.transform=get_transform(self.split,224)
         self.max_len = max_len #77
@@ -205,8 +205,8 @@ class CocoDataset(data.Dataset):
             self.bp = len(self.ids)
 
         #VLM配置(使用其他的大模型)
-        self.API_KEY = "sk-ahlkqzrgdmdlimaqdfvbeweykcfrlchbglpqodpnadjsgeec"
-        self.BASE_URL="https://api.siliconflow.cn/v1"
+        self.API_KEY = ""
+        self.BASE_URL=""
         self.TextGenerator=ImageDescriptionGenerator(api_key=self.API_KEY,base_url=self.BASE_URL)
 
         # 添加速率限制参数
@@ -340,7 +340,7 @@ class FlickrDataset(data.Dataset):
     """
 
     def __init__(self, root, json, split, vocab, max_len, use_deepseek):
-        self.cache_dir = os.path.join(os.path.dirname("/mnt/Data/wangshilong/self_datasets/f30k/images"),"BLIP2_caption_cache")
+        self.cache_dir = os.path.join(os.path.dirname("PATH TO DATASET"),"BLIP2_caption_cache")
         os.makedirs(self.cache_dir, exist_ok=True)
         self.useDeepseek=use_deepseek
         self.max_len = max_len
@@ -357,8 +357,8 @@ class FlickrDataset(data.Dataset):
                 self.ids += [(i, x) for x in range(len(d['sentences']))] #[0,1]第一个图像和第一个文本描述
 
         # VLM配置（使用其他LMMS）
-        self.API_KEY = "sk-ahlkqzrgdmdlimaqdfvbeweykcfrlchbglpqodpnadjsgeec"
-        self.BASE_URL = "https://api.siliconflow.cn/v1"
+        self.API_KEY = ""
+        self.BASE_URL = ""
         self.TextGenerator = ImageDescriptionGenerator(api_key=self.API_KEY, base_url=self.BASE_URL)
 
         # 添加速率限制参数
