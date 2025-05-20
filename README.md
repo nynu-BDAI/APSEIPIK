@@ -18,11 +18,13 @@ We provide specific code to help you batch-generate multi-view image description
         python Use_BLIP2_gen_text/generate_text_from_BLIP2.py
      
 
-### Flickr30k Trained Weights:
+### Flickr30k/MSCOCO Trained Weights:
 
-We provide here the APSEIPIK model weights trained on the Flickr30k dataset, for convenient subsequent evaluation and research.
+We provide here the APSEIPIK model weights trained on the Flickr30k and MSCOCO dataset, for convenient subsequent evaluation and research.
 
   * Flickr30k pre-trained weights: `https://pan.baidu.com/s/1igvCQobGeiM_UBzElCnObQ?pwd=enj3`
+
+  * MSCOCO pre-trained weights: `https://pan.baidu.com/s/12W0MUjlFsXsYQFrtk9oiIg?pwd=chez`
     * You can load the weights as follows:
         ```python
         model.load_state_dict(torch.load('path/to/your/flickr30k_weights.pth'))
